@@ -22,7 +22,6 @@ export class CreateRecipeDto {
     @ApiProperty()
     images: string[];
 
-    @ApiProperty()
     userId: string;
 
     @ApiProperty()
