@@ -11,27 +11,44 @@ datasource db {
 }
 
 model User {
-  id                    String         @id @default(uuid())
+  id                    String    @id @default(uuid())
   name                  String?
   firstName             String
   lastName              String
-  email                 String         @unique
+  email                 String    @unique
   password              String
   profileImage          String?
   coverImage            String[]
-  username              String?        @unique
-  gender                Genders        @default(Male)
+  username              String?   @unique
+  gender                Genders   @default(Male)
   phoneNumber           String?
-  bio                   String?        @db.VarChar(255)
+  bio                   String?   @db.VarChar(255)
   dateOfBirth           DateTime?
   address               String
   city                  String
   state                 String
-  country               String         @default("Nigeria")
+  country               String    @default("Nigeria")
   emailVerifiedAt       DateTime?
   phoneNumberVerifiedAt DateTime?
-  createdAt             DateTime       @default(now())
-  updatedAt             DateTime       @updatedAt
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+  Recipe                Recipe[]
+}
+
+model Recipe {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  ingredients String[]
+  instruction String
+  diet        String[]
+  origin      String
+  images      String[]
+  video       String?
+  user        User     @relation(fields: [userId], references: [id])
+  userId      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 enum Genders {
