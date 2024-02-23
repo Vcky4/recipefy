@@ -10,16 +10,4 @@ export class ResetPasswordDto {
     @IsNotEmpty()
     passwordConfirmation: string;
 
-    @ApiProperty()
-    @IsNotEmpty()
-    deviceName: string;
-
-    @ApiProperty()
-    @IsNotEmpty()
-    deviceToken: string;
-    
-    @ApiProperty()
-    @IsNotEmpty()
-    os: string;
-
 }

@@ -9,16 +9,4 @@ export class SignInDto {
   @IsNotEmpty ()
   password: string;
 
-  @ApiProperty()
-  @IsNotEmpty ()
-  deviceName: string;
-
-  @ApiProperty()
-  @IsNotEmpty ()
-  deviceToken: string;
-
-  @ApiProperty()
-  @IsNotEmpty ()
-  os: string;
-
 }
