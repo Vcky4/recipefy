@@ -10,7 +10,7 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   const config = new DocumentBuilder()
     .setTitle('Recipefy API')
-    .setDescription('The Cakkie API description')
+    .setDescription('Recipeify is a backend application aimed at managing recipes. It provides a comprehensive API for creating, retrieving, updating, and deleting recipes. The application will handle various aspects of recipe management, including storing recipe details in a database, performing CRUD operations, and managing user authentication.')
     .setVersion('1.0')
     .addTag('recipefy')
     .addBearerAuth(
