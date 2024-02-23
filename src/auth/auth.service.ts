@@ -1,4 +1,3 @@
-import { ConfigService } from '@nestjs/config';
 import { SignUpDto } from './dto/sign-up.dto';
 import { SignInDto } from './dto/sign-in.dto';
 import { UsersService } from './../users/users.service';
@@ -10,15 +9,11 @@ const bcrypt = require('bcrypt');
 
 @Injectable()
 export class AuthService {
-  private secret = '';
 
   constructor(
     private usersService: UsersService,
     private jwtService: JwtService,
-    private configService: ConfigService,
-  ) {
-    this.secret = configService.get<string>('OTP_SECRET');
-  }
+  ) {}
 
   async signUp(signUpDto: SignUpDto) {
     var userExists = false;
