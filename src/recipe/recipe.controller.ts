@@ -1,5 +1,5 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Req, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, Req, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { RecipeService } from './recipe.service';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-guard';
 import { CreateRecipeDto } from './dto/create-recipe.dto';
@@ -26,8 +26,16 @@ export class RecipeController {
     @UseGuards(JwtAuthGuard)
     @Get()
     @ApiResponse({ type: CreateRecipeDto, isArray: true })
-    findAll() {
-        return this.recipeService.findAll();
+    @ApiQuery({ name: 'page', required: false })
+    @ApiQuery({ name: 'pageSize', required: false })
+    findAll(
+        @Query('page') page: number = 0,
+        @Query('pageSize') pageSize: number = 20
+    ) {
+        return this.recipeService.findAll({
+            page,
+            pageSize
+        });
     }
 
     //find one recipe
@@ -55,3 +63,4 @@ export class RecipeController {
     }
 
 }
+

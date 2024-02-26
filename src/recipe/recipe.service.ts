@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateRecipeDto } from './dto/create-recipe.dto';
 import { UpdateRecipeDto } from './dto/update-recipe.dto';
+import { PaginationDto } from './dto/pagination.dto';
+import { formatPagination } from 'src/helpers';
 
 @Injectable()
 export class RecipeService {
@@ -15,8 +17,15 @@ export class RecipeService {
     }
 
     //find all recipes
-    async findAll() {
-        return this.prismaService.recipe.findMany();
+    async findAll(pagination: PaginationDto) {
+        return this.prismaService.recipe.findMany({
+            skip: pagination.page * pagination.pageSize,
+            take: parseInt(pagination.pageSize.toString()),
+        }).then((data) => {
+            return formatPagination(data, pagination);
+        }).catch((error) => {
+            throw new Error(`Error: ${error}`);
+        })
     }
 
     //find one recipe
