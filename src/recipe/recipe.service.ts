@@ -17,8 +17,35 @@ export class RecipeService {
     }
 
     //find all recipes
-    async findAll(pagination: PaginationDto) {
+    async findAll(search: string, pagination: PaginationDto) {
         return this.prismaService.recipe.findMany({
+            where: {
+                OR: [
+                    {
+                        title: {
+                            contains: search,
+                            mode: 'insensitive'
+                        }
+                    },
+                    {
+                        description: {
+                            contains: search,
+                            mode: 'insensitive'
+                        }
+                    },
+                    {
+                        ingredients: {
+                            has: search,
+                        }
+                    },
+                    {
+                        instruction: {
+                            contains: search,
+                            mode: 'insensitive'
+                        }
+                    }
+                ],
+            },
             skip: pagination.page * pagination.pageSize,
             take: parseInt(pagination.pageSize.toString()),
         }).then((data) => {

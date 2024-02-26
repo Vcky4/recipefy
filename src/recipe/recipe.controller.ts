@@ -26,16 +26,21 @@ export class RecipeController {
     @UseGuards(JwtAuthGuard)
     @Get()
     @ApiResponse({ type: CreateRecipeDto, isArray: true })
+    @ApiQuery({ name: 'search', required: false })
     @ApiQuery({ name: 'page', required: false })
     @ApiQuery({ name: 'pageSize', required: false })
     findAll(
+        @Query('search') serach: string = '',
         @Query('page') page: number = 0,
         @Query('pageSize') pageSize: number = 20
     ) {
-        return this.recipeService.findAll({
-            page,
-            pageSize
-        });
+        return this.recipeService.findAll(
+            serach,
+            {
+                page,
+                pageSize
+            }
+        );
     }
 
     //find one recipe
